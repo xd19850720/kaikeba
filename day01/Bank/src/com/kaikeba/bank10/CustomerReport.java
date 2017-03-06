@@ -1,0 +1,34 @@
+package com.kaikeba.bank10;
+
+public class CustomerReport {
+
+	public void generateReport() {
+		//获取银行类
+		Bank bank = Bank.getBank();
+		
+		Customer customer = null;
+		
+		System.out.println("\t\t\tCUSTOMERS REPORT");
+		System.out.println("\t\t\t================");
+		String account_type = "";
+		for (int cust_idx = 0; cust_idx < bank.getNumofCustomer(); cust_idx++) {
+			
+			customer = bank.getCustomers(cust_idx);
+			System.out.println("Customer: " + customer.getName() );
+
+			for (int acct_idx = 0; acct_idx < customer.getNumOfAccounts(); acct_idx++) {
+				Account account = customer.getAccount(acct_idx);
+
+				if (account instanceof SavingAccount) {
+					account_type = "Savings Account";
+				} else if (account instanceof CheckingAccount) {
+					account_type = "Checking Account";
+				}
+				System.out.println(account_type + ": current balance is"
+						+ account.getBalance());
+			}
+		}
+
+	}
+
+}
